@@ -9,7 +9,7 @@ public class Main {
         int i = 0;
         while (i == 0){
             Scanner sc= new Scanner(System.in);
-            System.out.println("Enter command: ");
+            System.out.println("\n>Enter command: ");
             String str = sc.nextLine();
             String [] splitStr = str.split("\\s+");
             if (str.charAt(0) == 'I' && splitStr.length == 2) {
@@ -31,13 +31,13 @@ public class Main {
             else if (str.equals("Q")){
                 i = 1;}
             else
-                System.out.println("Incorrect input, please try again");
+                System.out.println("*Incorrect input, please try again*");
         }
 
     }
 
     public static void Initialize(int initial){
-        System.out.println("System initalized to a " + initial+ "x" + initial + " array.");
+        System.out.println(">System initalized to a " + initial+ "x" + initial + " array.");
         obj.setX(0);
         obj.setY(0);
         obj.setFacing("north");
@@ -48,19 +48,22 @@ public class Main {
         int y = obj.getY();
         String pen = obj.getPen();
         String facing = obj.getFacing();
-        System.out.println("Position: " + x + ", " + y + " - Pen: " + pen + " - Facing: " + facing);
+        System.out.println(">Position: " + x + ", " + y + " - Pen: " + pen + " - Facing: " + facing);
     }
     public static void Down(){
         obj.setPen("down");
-        System.out.println("Pen down");
+        System.out.println(">Pen down");
     }
     public static void Up(){
         obj.setPen("up");
-        System.out.println("Pen up");
+        System.out.println(">Pen up");
     }
     public static void Move(int move){
         int x = obj.getX();
         int y = obj.getY();
+        int drawX = obj.getdrawX();
+        int drawY = obj.getdrawY();
+        String pen = obj.getPen();
         String facing = obj.getFacing();
         switch (facing) {
             case "north" -> {
@@ -80,7 +83,27 @@ public class Main {
                 obj.setX(x);
             }
         }
-        System.out.println("Move by "+ move);
+        if (pen.equals("down")) {
+            switch (facing) {
+                case "north" -> {
+                    drawY += move;
+                    obj.setdrawY(drawY);
+                }
+                case "south" -> {
+                    drawY -= move;
+                    obj.setdrawY(drawY);
+                }
+                case "east" -> {
+                    drawX += move;
+                    obj.setdrawX(drawX);
+                }
+                case "west" -> {
+                    drawX -= move;
+                    obj.setX(drawX);
+                }
+            }
+        }
+        System.out.println(">Move by "+ move);
     }
     public static void TurnRight(){
         String facing = obj.getFacing();
@@ -98,7 +121,7 @@ public class Main {
                 obj.setFacing("north");
             }
         }
-        System.out.println("Turn Right");
+        System.out.println(">Turn Right");
     }
     public static void TurnLeft(){
         String facing = obj.getFacing();
@@ -116,11 +139,11 @@ public class Main {
                 obj.setFacing("south");
             }
         }
-        System.out.println("Turn Left");
+        System.out.println(">Turn Left");
     }
     public static void Print(){
-        int x = obj.getX();
-        int y = obj.getY();
+        int x = obj.getdrawX();
+        int y = obj.getdrawY();
         String result = "";
         for (int i = 0; i < x; i++) {
             result = new String(new char[i]).replace("\0", "* ");
@@ -129,7 +152,6 @@ public class Main {
         for (int i = 0; i < y; i++) {
             System.out.println("*");
         }
-        System.out.println("Printing");
     }
 }
 
