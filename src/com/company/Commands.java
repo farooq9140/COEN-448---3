@@ -1,6 +1,7 @@
 package com.company;
 
 public class Commands {
+    public int initial = 0;
     public int x = 0;
     public int y = 0;
     public int drawX = 0;
@@ -9,6 +10,7 @@ public class Commands {
     public String pen = "up";
 
     // Getter
+    public int getInitial() {return initial;}
     public int getX() {
         return x;
     }
@@ -25,6 +27,7 @@ public class Commands {
     }
 
     // Setter
+    public void setInitial(int newInitial) { this.initial = newInitial;}
     public void setX(int newX) {
         this.x = newX;
     }
