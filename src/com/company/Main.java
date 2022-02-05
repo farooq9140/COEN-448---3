@@ -13,7 +13,7 @@ public class Main {
             System.out.println("\n>Enter command: ");
             String str = sc.nextLine().toLowerCase();
             String [] splitStr = str.split("\\s+");
-            if (!isNumeric(splitStr[1])){
+            if (splitStr.length == 2 && !isNumeric(splitStr[1])){
                 System.out.println("*Incorrect input, please try again*");}
             else if (str.charAt(0) == 'i' && splitStr.length == 2 && Integer.parseInt(splitStr[1]) > 0) {
                 Initialize(Integer.parseInt(splitStr[1]));}
@@ -124,36 +124,20 @@ public class Main {
     public static void TurnRight(){
         String facing = obj.getFacing();
         switch (facing) {
-            case "north" -> {
-                obj.setFacing("east");
-            }
-            case "south" -> {
-                obj.setFacing("west");
-            }
-            case "east" -> {
-                obj.setFacing("south");
-            }
-            case "west" -> {
-                obj.setFacing("north");
-            }
+            case "north" -> obj.setFacing("east");
+            case "south" -> obj.setFacing("west");
+            case "east" -> obj.setFacing("south");
+            case "west" -> obj.setFacing("north");
         }
         System.out.println(">Turn Right");
     }
     public static void TurnLeft(){
         String facing = obj.getFacing();
         switch (facing) {
-            case "north" -> {
-                obj.setFacing("west");
-            }
-            case "south" -> {
-                obj.setFacing("east");
-            }
-            case "east" -> {
-                obj.setFacing("north");
-            }
-            case "west" -> {
-                obj.setFacing("south");
-            }
+            case "north" -> obj.setFacing("west");
+            case "south" -> obj.setFacing("east");
+            case "east" -> obj.setFacing("north");
+            case "west" -> obj.setFacing("south");
         }
         System.out.println(">Turn Left");
     }
