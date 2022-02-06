@@ -84,39 +84,31 @@ public class Main {
             {switch (facing) {
                 case "north" -> {
                     y += move;
+                    if (pen.equals("down")) {
+                        obj.drawY(move);
+                    }
                     obj.setY(y);
                 }
                 case "south" -> {
                     y -= move;
+                    if (pen.equals("down")) {
+                        obj.drawY(-move);
+                    }
                     obj.setY(y);
                 }
                 case "east" -> {
                     x += move;
+                    if (pen.equals("down")) {
+                        obj.drawX(move);
+                    }
                     obj.setX(x);
                 }
                 case "west" -> {
                     x -= move;
+                    if (pen.equals("down")) {
+                        obj.drawX(-move);
+                    }
                     obj.setX(x);
-                }
-            }
-            if (pen.equals("down")) {
-                switch (facing) {
-                    case "north" -> {
-                        drawY += move;
-                        obj.setdrawY(drawY);
-                    }
-                    case "south" -> {
-                        drawY -= move;
-                        obj.setdrawY(drawY);
-                    }
-                    case "east" -> {
-                        drawX += move;
-                        obj.setdrawX(drawX);
-                    }
-                    case "west" -> {
-                        drawX -= move;
-                        obj.setX(drawX);
-                    }
                 }
             }
             System.out.println(">Move by "+ move);}
@@ -142,16 +134,44 @@ public class Main {
         System.out.println(">Turn Left");
     }
     public static void Print(){
+        int size = obj.getInitial();
         int x = obj.getdrawX();
         int y = obj.getdrawY();
-        String result = "";
-        for (int i = 0; i < x; i++) {
+        String limits = "  +";
+        for (int i = 0; i < size; ++i) {
+            limits += "--";
+        }
+        limits += "+";
+        System.out.println(limits);
+        for (int i = size-1; i >= 0; --i) {
+            String line = "";
+            line += Integer.toString(i);
+            line += " |";
+            for (int ii = 0; ii < size; ++ii) {
+                if (obj.isDrawn(ii, i) == 0) {
+                    line += "  ";
+                }
+                else {
+                    line += " *";
+                }
+            }
+            line += '|';
+            System.out.println(line);
+        }
+        System.out.println(limits);
+        String bottom = "   ";
+        for (int i = 0; i < size; ++i) {
+            bottom += ' ';
+            bottom += Integer.toString(i);
+        }
+        System.out.println(bottom);
+        /*for (int i = 0; i < x; i++) {
             result = new String(new char[i]).replace("\0", "* ");
         }
         System.out.println(result + "* *");
         for (int i = 0; i < y; i++) {
             System.out.println("*");
-        }
+        }*/
     }
 
     public static boolean isNumeric(final CharSequence cs) {
