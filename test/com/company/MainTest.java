@@ -14,8 +14,6 @@ import org.junit.jupiter.api.DisplayName;
 
 
 public class MainTest {
-
-    Main robot = new Main();
     Commands obj = new Commands();
 
 
@@ -27,7 +25,7 @@ public class MainTest {
     @Test
     @DisplayName("Should initialize robot")
     public void testinitialize() {
-        robot.Initialize(8);
+        obj.Initialize(8);
         assertEquals(obj.getX(), 0);
         assertEquals(obj.getX(), 0);
         assertEquals(obj.getFacing(), "north");
@@ -45,14 +43,14 @@ public class MainTest {
 
     @Test
     public void testdown() {
-        robot.Initialize(8);
+        obj.Initialize(8);
         obj.setPen("down");
         assertEquals(obj.getPen(), "down");
     }
 
     @Test
     public void testup() {
-        robot.Initialize(10);
+        obj.Initialize(10);
         obj.setPen("up");
         assertEquals(obj.getPen(), "up");
 
@@ -61,21 +59,21 @@ public class MainTest {
     @Test
     public void testmove() {
 
-        robot.Initialize(8);
-        robot.Move(6);
+        obj.Initialize(8);
+        obj.Move(6);
 
 
         assertEquals(6, obj.getY());
         assertEquals(0, obj.getX());
 
-        robot.TurnRight();
-        robot.Move(3);
+        obj.TurnRight();
+        obj.Move(3);
 
         assertEquals(3, obj.getX());
         assertEquals(6, obj.getY());
 
-        robot.TurnRight();
-        robot.Move(1);
+        obj.TurnRight();
+        obj.Move(1);
 
         assertEquals(3, obj.getX());
         assertEquals(5, obj.getY());
@@ -84,40 +82,40 @@ public class MainTest {
 
     @Test
     public void testturnRight() {
-        robot.Initialize(8);
+        obj.Initialize(8);
 
         assertEquals( "north", obj.getFacing());
-        robot.TurnRight();
+        obj.TurnRight();
         assertEquals( "east", obj.getFacing());
-        robot.TurnRight();
+        obj.TurnRight();
         assertEquals("south", obj.getFacing());
-        robot.TurnRight();
+        obj.TurnRight();
         assertEquals("west", obj.getFacing());
-        robot.TurnRight();
-        robot.TurnRight();
-        robot.TurnRight();
+        obj.TurnRight();
+        obj.TurnRight();
+        obj.TurnRight();
         assertEquals("south", obj.getFacing());
-        robot.TurnRight();
-        robot.TurnRight();
+        obj.TurnRight();
+        obj.TurnRight();
         assertEquals("north", obj.getFacing());
     }
 
     @Test
     public void testturnLeft() {
-        robot.Initialize(8);
+        obj.Initialize(8);
         assertEquals( "north", obj.getFacing());
-        robot.TurnLeft();
+        obj.TurnLeft();
         assertEquals( "west", obj.getFacing());
-        robot.TurnLeft();
+        obj.TurnLeft();
         assertEquals("south", obj.getFacing());
-        robot.TurnLeft();
+        obj.TurnLeft();
         assertEquals("east", obj.getFacing());
-        robot.TurnLeft();
-        robot.TurnLeft();
-        robot.TurnLeft();
+        obj.TurnLeft();
+        obj.TurnLeft();
+        obj.TurnLeft();
         assertEquals("south", obj.getFacing());
-        robot.TurnLeft();
-        robot.TurnLeft();
+        obj.TurnLeft();
+        obj.TurnLeft();
         assertEquals("north", obj.getFacing());
     }
 //
