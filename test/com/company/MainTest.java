@@ -19,11 +19,11 @@ public class MainTest {
 
     @BeforeAll
     public static void setupAll() {
-        System.out.println("Should Print Before All Tests");
+        System.out.println("Print before each unit test");
     }
 
     @Test
-    @DisplayName("Should initialize robot")
+    @DisplayName("Initialize obj position and array size")
     public void testinitialize() {
         obj.Initialize(8);
         assertEquals(obj.getX(), 0);
@@ -33,7 +33,7 @@ public class MainTest {
     }
 
     @Test
-    @DisplayName("Should check posit robot")
+    @DisplayName("Check position of obj")
     public void testcheck() {
         assertEquals(obj.x, obj.getX());
         assertEquals(obj.y, obj.getY());
@@ -42,6 +42,7 @@ public class MainTest {
     }
 
     @Test
+    @DisplayName("Check if pen is down")
     public void testdown() {
         obj.Initialize(8);
         obj.setPen("down");
@@ -49,6 +50,7 @@ public class MainTest {
     }
 
     @Test
+    @DisplayName("Check if pen is up")
     public void testup() {
         obj.Initialize(10);
         obj.setPen("up");
@@ -57,6 +59,7 @@ public class MainTest {
     }
 
     @Test
+    @DisplayName("Test how obj moves in array")
     public void testmove() {
 
         obj.Initialize(8);
@@ -81,6 +84,7 @@ public class MainTest {
     }
 
     @Test
+    @DisplayName("Test when obj turns to the right")
     public void testturnRight() {
         obj.Initialize(8);
 
@@ -101,6 +105,7 @@ public class MainTest {
     }
 
     @Test
+    @DisplayName("Test when obj turns to the left")
     public void testturnLeft() {
         obj.Initialize(8);
         assertEquals( "north", obj.getFacing());
@@ -118,8 +123,16 @@ public class MainTest {
         obj.TurnLeft();
         assertEquals("north", obj.getFacing());
     }
-//
-//    @Test
-//    public void print() {
-//    }
+
+    @Test
+    @DisplayName("Test the print of obj")
+    public void testPrint() {
+        obj.Initialize(8);
+        obj.setPen("down");
+        obj.Move(6);
+        obj.TurnRight();
+        obj.Move(3);
+        obj.Print();
+
+    }
 }
