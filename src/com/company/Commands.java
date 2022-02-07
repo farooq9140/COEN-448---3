@@ -6,6 +6,7 @@ public class Commands {
     public int y = 0;
     public int drawX = 0;
     public int drawY = 0;
+    public int[][] grid;    //First index is x, second is y
     public String facing = "north";
     public String pen = "up";
 
@@ -19,6 +20,7 @@ public class Commands {
         return drawX;
     }
     public int getdrawY() {return drawY;}
+    public int isDrawn(int x, int y) {return grid[x][y];}
     public String getFacing() {
         return facing;
     }
@@ -27,7 +29,16 @@ public class Commands {
     }
 
     // Setter
-    public void setInitial(int newInitial) { this.initial = newInitial;}
+
+    public void setInitial(int newInitial) {
+        this.initial = newInitial;
+        this.grid = new int[newInitial][newInitial];
+        for (int i = 0; i < newInitial; ++i){
+            for (int ii = 0; ii < newInitial; ++ii){
+                grid[i][ii] = 0;
+            }
+        }
+    }
     public void setX(int newX) {
         this.x = newX;
     }
@@ -70,13 +81,13 @@ public class Commands {
         System.out.println(">Pen up");
     }
     public void Move(int move){
-        int initial = getInitial();
-        int x = getX();
-        int y = getY();
-        int drawX = getdrawX();
-        int drawY = getdrawY();
-        String pen = getPen();
-        String facing = getFacing();
+        int initial = this.getInitial();
+        int x = this.getX();
+        int y = this.getY();
+        int drawX = this.getdrawX();
+        int drawY = this.getdrawY();
+        String pen = this.getPen();
+        String facing = this.getFacing();
         if (x+move > initial && facing.equals("east"))
             System.out.println("x out of bounds,try again");
         else if (x-move < 0 && facing.equals("west"))
@@ -86,42 +97,34 @@ public class Commands {
         else if (y-move < 0 && facing.equals("south"))
             System.out.println("y out of bounds,try again");
         else
-        {switch (facing) {
-            case "north" -> {
-                y += move;
-                setY(y);
-            }
-            case "south" -> {
-                y -= move;
-                setY(y);
-            }
-            case "east" -> {
-                x += move;
-                setX(x);
-            }
-            case "west" -> {
-                x -= move;
-                setX(x);
-            }
-        }
-            if (pen.equals("down")) {
-                switch (facing) {
-                    case "north" -> {
-                        drawY += move;
-                        setdrawY(drawY);
+            {switch (facing) {
+                case "north" -> {
+                    y += move;
+                    if (pen.equals("down")) {
+                        this.drawY(move);
                     }
-                    case "south" -> {
-                        drawY -= move;
-                        setdrawY(drawY);
+                    this.setY(y);
+                }
+                case "south" -> {
+                    y -= move;
+                    if (pen.equals("down")) {
+                        this.drawY(-move);
                     }
-                    case "east" -> {
-                        drawX += move;
-                        setdrawX(drawX);
+                    this.setY(y);
+                }
+                case "east" -> {
+                    x += move;
+                    if (pen.equals("down")) {
+                        this.drawX(move);
                     }
-                    case "west" -> {
-                        drawX -= move;
-                        setX(drawX);
+                    this.setX(x);
+                }
+                case "west" -> {
+                    x -= move;
+                    if (pen.equals("down")) {
+                        this.drawX(-move);
                     }
+                    this.setX(x);
                 }
             }
             System.out.println(">Move by "+ move);}
@@ -154,16 +157,37 @@ public class Commands {
         System.out.println(">Turn Left");
     }
     public void Print(){
-        int x = getdrawX();
-        int y = getdrawY();
-        String result = "";
-        for (int i = 0; i < x; i++) {
-            result = new String(new char[i]).replace("\0", "* ");
+        int size = this.getInitial();
+        int x = this.getdrawX();
+        int y = this.getdrawY();
+        String limits = "  +";
+        for (int i = 0; i < size; ++i) {
+            limits += "--";
         }
-        System.out.println(result + "* *");
-        for (int i = 0; i < y; i++) {
-            System.out.println("*");
+        limits += "+";
+        System.out.println(limits);
+        for (int i = size-1; i >= 0; --i) {
+            String line = "";
+            line += Integer.toString(i);
+            line += " |";
+            for (int ii = 0; ii < size; ++ii) {
+                if (this.isDrawn(ii, i) == 0) {
+                    line += "  ";
+                }
+                else {
+                    line += " *";
+                }
+            }
+            line += '|';
+            System.out.println(line);
         }
+        System.out.println(limits);
+        String bottom = "   ";
+        for (int i = 0; i < size; ++i) {
+            bottom += ' ';
+            bottom += Integer.toString(i);
+        }
+        System.out.println(bottom);
     }
 
     public boolean isNumeric(final CharSequence cs) {
@@ -174,5 +198,35 @@ public class Commands {
             }
         }
         return true;
+    }
+    
+    public void drawX(int lengthX){
+        int startX = getX();
+        int startY = getY();
+        if (lengthX > 0) {
+            for (int i = 0; i <= lengthX; ++i) {
+                grid[startX + i][startY] = 1;
+            }
+        }
+        else {
+            for (int i = 0; i >= lengthX; --i) {
+                grid[startX - i][startY] = i;
+            }
+        }
+    }
+
+    public void drawY(int lengthY){
+        int startX = getX();
+        int startY = getY();
+        if (lengthY > 0) {
+            for (int i = 0; i <= lengthY; ++i) {
+                grid[startX][startY + i] = 1;
+            }
+        }
+        else {
+            for (int i = 0; i >= lengthY; --i) {
+                grid[startX][startY - i] = i;
+            }
+        }
     }
 }
