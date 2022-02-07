@@ -125,6 +125,30 @@ public class MainTest {
     }
 
     @Test
+    public void testDrawY() {
+        obj.Initialize(8);
+        obj.drawY(5);
+        obj.Print();
+
+        obj.Initialize(8);
+        obj.setY(6);
+        obj.drawY(-5);
+        obj.Print();
+    }
+
+    @Test
+    public void testDrawX() {
+        obj.Initialize(8);
+        obj.drawX(5);
+        obj.Print();
+
+        obj.Initialize(8);
+        obj.setX(6);
+        obj.drawX(-5);
+        obj.Print();
+    }
+
+    @Test
     @DisplayName("Test the print of obj")
     public void testPrint() {
         obj.Initialize(8);

@@ -210,7 +210,7 @@ public class Commands {
         }
         else {
             for (int i = 0; i >= lengthX; --i) {
-                grid[startX - i][startY] = i;
+                grid[startX + i][startY] = 1;
             }
         }
     }
@@ -225,7 +225,7 @@ public class Commands {
         }
         else {
             for (int i = 0; i >= lengthY; --i) {
-                grid[startX][startY - i] = i;
+                grid[startX][startY + i] = 1;
             }
         }
     }
