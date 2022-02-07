@@ -12,9 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 
+import java.io.ByteArrayOutputStream;
+
 
 public class MainTest {
     Commands obj = new Commands();
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
 
     @BeforeAll
@@ -125,6 +128,7 @@ public class MainTest {
     }
 
     @Test
+    @DisplayName("Test drawing in y direction")
     public void testDrawY() {
         obj.Initialize(8);
         obj.drawY(5);
@@ -137,6 +141,7 @@ public class MainTest {
     }
 
     @Test
+    @DisplayName("Test drawing in x direction")
     public void testDrawX() {
         obj.Initialize(8);
         obj.drawX(5);

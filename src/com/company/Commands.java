@@ -57,6 +57,7 @@ public class Commands {
     public void setPen(String newPen) {
         this.pen = newPen;
     }
+
     public void Initialize(int initial){
         System.out.println(">System initialized to a " + initial+ "x" + initial + " array.");
         setInitial(initial);
