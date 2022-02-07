@@ -6,6 +6,7 @@ public class Commands {
     public int y = 0;
     public int drawX = 0;
     public int drawY = 0;
+    public int[][] grid;    //First index is x, second is y
     public String facing = "north";
     public String pen = "up";
 
@@ -19,6 +20,7 @@ public class Commands {
         return drawX;
     }
     public int getdrawY() {return drawY;}
+    public int isDrawn(int x, int y) {return grid[x][y];}
     public String getFacing() {
         return facing;
     }
@@ -27,7 +29,15 @@ public class Commands {
     }
 
     // Setter
-    public void setInitial(int newInitial) { this.initial = newInitial;}
+    public void setInitial(int newInitial) {
+        this.initial = newInitial;
+        this.grid = new int[newInitial][newInitial];
+        for (int i = 0; i < newInitial; ++i){
+            for (int ii = 0; ii < newInitial; ++ii){
+                grid[i][ii] = 0;
+            }
+        }
+    }
     public void setX(int newX) {
         this.x = newX;
     }
@@ -45,5 +55,35 @@ public class Commands {
     }
     public void setPen(String newPen) {
         this.pen = newPen;
+    }
+
+    public void drawX(int lengthX){
+        int startX = getX();
+        int startY = getY();
+        if (lengthX > 0) {
+            for (int i = 0; i <= lengthX; ++i) {
+                grid[startX + i][startY] = 1;
+            }
+        }
+        else {
+            for (int i = 0; i >= lengthX; --i) {
+                grid[startX - i][startY] = i;
+            }
+        }
+    }
+
+    public void drawY(int lengthY){
+        int startX = getX();
+        int startY = getY();
+        if (lengthY > 0) {
+            for (int i = 0; i <= lengthY; ++i) {
+                grid[startX][startY + i] = 1;
+            }
+        }
+        else {
+            for (int i = 0; i >= lengthY; --i) {
+                grid[startX][startY - i] = i;
+            }
+        }
     }
 }
