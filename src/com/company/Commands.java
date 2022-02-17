@@ -89,13 +89,13 @@ public class Commands {
         int drawY = this.getdrawY();
         String pen = this.getPen();
         String facing = this.getFacing();
-        if (x+move > initial && facing.equals("east"))
+        if (x+move >= initial && facing.equals("east"))
             System.out.println("x out of bounds,try again");
-        else if (x-move < 0 && facing.equals("west"))
+        else if (x-move <= 0 && facing.equals("west"))
             System.out.println("x out of bounds,try again");
-        else if (y+move > initial && facing.equals("north"))
+        else if (y+move >= initial && facing.equals("north"))
             System.out.println("y out of bounds,try again");
-        else if (y-move < 0 && facing.equals("south"))
+        else if (y-move <= 0 && facing.equals("south"))
             System.out.println("y out of bounds,try again");
         else
             {switch (facing) {
