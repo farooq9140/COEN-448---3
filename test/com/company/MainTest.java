@@ -38,6 +38,7 @@ public class MainTest {
     @Test
     @DisplayName("Check position of obj")
     public void testcheck() {
+        obj.Check();
         assertEquals(obj.x, obj.getX());
         assertEquals(obj.y, obj.getY());
         assertEquals(obj.pen, obj.getPen());
@@ -48,7 +49,7 @@ public class MainTest {
     @DisplayName("Check if pen is down")
     public void testdown() {
         obj.Initialize(8);
-        obj.setPen("down");
+        obj.Down();
         assertEquals(obj.getPen(), "down");
     }
 
@@ -56,7 +57,7 @@ public class MainTest {
     @DisplayName("Check if pen is up")
     public void testup() {
         obj.Initialize(10);
-        obj.setPen("up");
+        obj.Up();
         assertEquals(obj.getPen(), "up");
 
     }

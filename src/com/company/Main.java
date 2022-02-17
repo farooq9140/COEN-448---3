@@ -13,7 +13,7 @@ public class Main {
             System.out.println("\n>Enter command: ");
             String str = sc.nextLine().toLowerCase();
             String [] splitStr = str.split("\\s+");
-            if (splitStr.length == 2 && !obj.isNumeric(splitStr[1])){
+            if (splitStr.length == 2 && ! Main.isNumeric(splitStr[1])){
                 System.out.println("*Incorrect input, please try again*");}
             else if (str.charAt(0) == 'i' && splitStr.length == 2 && Integer.parseInt(splitStr[1]) > 0) {
                 obj.Initialize(Integer.parseInt(splitStr[1]));}
@@ -38,5 +38,14 @@ public class Main {
             else
                 System.out.println("*Incorrect input, please try again*");
         }
+    }
+    public static boolean isNumeric(final CharSequence cs) {
+        final int sz = cs.length();
+        for (int i = 0; i < sz; i++) {
+            if (!Character.isDigit(cs.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

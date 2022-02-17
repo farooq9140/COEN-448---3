@@ -45,12 +45,7 @@ public class Commands {
     public void setY(int newY) {
         this.y = newY;
     }
-    public void setdrawX(int newdrawX) {
-        this.drawX = newdrawX;
-    }
-    public void setdrawY(int newdrawY) {
-        this.drawY = newdrawY;
-    }
+
     public void setFacing(String newFacing) {
         this.facing = newFacing;
     }
@@ -95,7 +90,7 @@ public class Commands {
             System.out.println("x out of bounds,try again");
         else if (y+move >= initial && facing.equals("north"))
             System.out.println("y out of bounds,try again");
-        else if (y-move <= 0 && facing.equals("south"))
+        else if (y-move < 0 && facing.equals("south"))
             System.out.println("y out of bounds,try again");
         else
             {switch (facing) {
@@ -189,16 +184,6 @@ public class Commands {
             bottom += Integer.toString(i);
         }
         System.out.println(bottom);
-    }
-
-    public boolean isNumeric(final CharSequence cs) {
-        final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isDigit(cs.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
     }
     
     public void drawX(int lengthX){
