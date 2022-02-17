@@ -13,16 +13,29 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 
 import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class MainTest {
     Commands obj = new Commands();
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-
+    private static final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+    private static final ByteArrayOutputStream errorStreamCaptor = new ByteArrayOutputStream();
+    private static final PrintStream originalOutput = System.out;
+    private static final PrintStream originalError = System.err;
 
     @BeforeAll
     public static void setupAll() {
         System.out.println("Print before each unit test");
+        System.setOut(new PrintStream(outputStreamCaptor));
+        System.setErr(new PrintStream(errorStreamCaptor));
+    }
+
+    @AfterAll
+    public static void restoreStreams() {
+        System.setOut(originalOutput);
+        System.setErr(originalError);
     }
 
     @Test
@@ -38,11 +51,14 @@ public class MainTest {
     @Test
     @DisplayName("Check position of obj")
     public void testcheck() {
+        outputStreamCaptor.reset();
         obj.Check();
-        assertEquals(obj.x, obj.getX());
-        assertEquals(obj.y, obj.getY());
-        assertEquals(obj.pen, obj.getPen());
-        assertEquals(obj.facing, obj.getFacing());
+        int x = obj.getX();
+        int y = obj.getY();
+        String pen = obj.getPen();
+        String facing = obj.getFacing();
+        String expected = ">Position: " + x + ", " + y + " - Pen: " + pen + " - Facing: " + facing + "\r\n";
+        assertEquals(outputStreamCaptor.toString(), expected);
     }
 
     @Test
@@ -162,7 +178,9 @@ public class MainTest {
         obj.Move(6);
         obj.TurnRight();
         obj.Move(3);
+        outputStreamCaptor.reset();
         obj.Print();
-
+        String expected = "  +----------------+\r\n7 |                |\r\n6 | * * * *        |\r\n5 | *              |\r\n4 | *              |\r\n3 | *              |\r\n2 | *              |\r\n1 | *              |\r\n0 | *              |\r\n  +----------------+\r\n    0 1 2 3 4 5 6 7\r\n";
+        assertEquals(outputStreamCaptor.toString(), expected);
     }
 }
