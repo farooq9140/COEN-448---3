@@ -1,5 +1,8 @@
 package com.company;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Commands {
     public int initial = 0;
     public int x = 0;
@@ -9,6 +12,7 @@ public class Commands {
     public int[][] grid;    //First index is x, second is y
     public String facing = "north";
     public String pen = "up";
+    public List<String> history = new ArrayList<>();
 
     // Getter
     public int getInitial() {return initial;}
@@ -26,6 +30,9 @@ public class Commands {
     }
     public String getPen() {
         return pen;
+    }
+    public List<String> getHistory() {
+        return history;
     }
 
     // Setter
@@ -52,6 +59,7 @@ public class Commands {
     public void setPen(String newPen) {
         this.pen = newPen;
     }
+    public void setHistory(String str) {this.history.add(str);}
 
     public void Initialize(int initial){
         System.out.println(">System initialized to a " + initial+ "x" + initial + " array.");
@@ -67,6 +75,9 @@ public class Commands {
         String pen = getPen();
         String facing = getFacing();
         System.out.println(">Position: " + x + ", " + y + " - Pen: " + pen + " - Facing: " + facing);
+    }
+    public void History(){
+        System.out.println(this.history);
     }
     public void Down(){
         setPen("down");
