@@ -76,8 +76,8 @@ public class Commands {
         String facing = getFacing();
         System.out.println(">Position: " + x + ", " + y + " - Pen: " + pen + " - Facing: " + facing);
     }
-    public void History(){
-        System.out.println(this.history);
+    public List<String> History(){
+        return this.history;
     }
     public void Down(){
         setPen("down");
@@ -225,5 +225,56 @@ public class Commands {
                 grid[startX][startY + i] = 1;
             }
         }
+    }
+
+    public void mainFunction(String[] splitStr, String str){
+        if (splitStr.length == 2 && ! this.isNumeric(splitStr[1])){
+            this.setHistory(str + " - *Incorrect input, please try again*");
+            System.out.println("*Incorrect input, please try again*");}
+        else if (str.charAt(0) == 'i' && splitStr.length == 2 && Integer.parseInt(splitStr[1]) > 0) {
+            this.setHistory(str + " - Initialize");
+            this.Initialize(Integer.parseInt(splitStr[1]));}
+        else if (str.equals("d")){
+            this.setHistory(str + " - Down");
+            this.Down();}
+        else if (str.equals("u")){
+            this.setHistory(str + " - Up");
+            this.Up();}
+        else if (str.charAt(0) == 'm' && splitStr.length == 2 && Integer.parseInt(splitStr[1]) > 0){
+            this.setHistory(str + " - Move");
+            this.Move(Integer.parseInt(splitStr[1]));}
+        else if (str.equals("r")){
+            this.setHistory(str + " - Right");
+            this.TurnRight();}
+        else if (str.equals("l")){
+            this.setHistory(str + " - Left");
+            this.TurnLeft();}
+        else if (str.equals("p")){
+            this.setHistory(str + " - Print");
+            this.Print();}
+        else if (str.equals("c")){
+            this.setHistory(str + " - Check");
+            this.Check();}
+        else if (str.equals("h")){
+            this.setHistory(str + " - History");
+            System.out.println(this.History());}
+        else if (str.equals("q")){
+            System.out.println("Quit");}
+        else if (str.equals("help")){
+            this.setHistory(str + " - Help");
+            System.out.println("I # = Initialize\nC = Check\nD = Pen down\nU = Pen up\nM # = Move\nR = Turn right\nL = Turn left\nP = Print\nH = History\nQ = Exit");}
+        else{
+            this.setHistory(str + " - *Incorrect input, please try again*");
+            System.out.println("*Incorrect input, please try again*");}
+    }
+
+    public boolean isNumeric(final CharSequence cs) {
+        final int sz = cs.length();
+        for (int i = 0; i < sz; i++) {
+            if (!Character.isDigit(cs.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

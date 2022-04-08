@@ -15,6 +15,8 @@ import org.junit.jupiter.api.DisplayName;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -198,91 +200,91 @@ public class MainTest {
         outputStreamCaptor.reset();
         String d = "d";
         String [] d2 = d.split("\\s+");
-        Main.mainFunction(d2,d);
+        obj.mainFunction(d2,d);
         String expected = ">Pen down\r\n";
         assertEquals(outputStreamCaptor.toString(), expected);
         outputStreamCaptor.reset();
 
         String u = "u";
         String [] u2 = u.split("\\s+");
-        Main.mainFunction(u2,u);
+        obj.mainFunction(u2,u);
         expected = ">Pen up\r\n";
         assertEquals(outputStreamCaptor.toString(), expected);
         outputStreamCaptor.reset();
 
         String l = "l";
         String [] l2 = l.split("\\s+");
-        Main.mainFunction(l2,l);
+        obj.mainFunction(l2,l);
         expected = ">Turn Left\r\n";
         assertEquals(outputStreamCaptor.toString(), expected);
         outputStreamCaptor.reset();
 
         String r = "r";
         String [] r2 = r.split("\\s+");
-        Main.mainFunction(r2,r);
+        obj.mainFunction(r2,r);
         expected = ">Turn Right\r\n";
         assertEquals(outputStreamCaptor.toString(), expected);
         outputStreamCaptor.reset();
 
         String c = "c";
         String [] c2 = c.split("\\s+");
-        Main.mainFunction(c2,c);
+        obj.mainFunction(c2,c);
         expected = ">Position: 0, 0 - Pen: up - Facing: north\r\n";
         assertEquals(outputStreamCaptor.toString(), expected);
         outputStreamCaptor.reset();
 
         String m = "m 1";
         String [] m2 = m.split("\\s+");
-        Main.mainFunction(m2,m);
+        obj.mainFunction(m2,m);
         expected = "y out of bounds,try again\r\n";
         assertEquals(outputStreamCaptor.toString(), expected);
         outputStreamCaptor.reset();
 
         String i = "i 8";
         String [] i2 = i.split("\\s+");
-        Main.mainFunction(i2,i);
+        obj.mainFunction(i2,i);
         expected = ">System initialized to a 8x8 array.\r\n";
         assertEquals(outputStreamCaptor.toString(), expected);
         outputStreamCaptor.reset();
 
         String q = "q";
         String [] q2 = q.split("\\s+");
-        Main.mainFunction(q2,q);
+        obj.mainFunction(q2,q);
         expected = "Quit\r\n";
         assertEquals(outputStreamCaptor.toString(), expected);
         outputStreamCaptor.reset();
 
         String p = "p";
         String [] p2 = p.split("\\s+");
-        Main.mainFunction(p2,p);
+        obj.mainFunction(p2,p);
         expected = "  +----------------+\r\n7 |                |\r\n6 |                |\r\n5 |                |\r\n4 |                |\r\n3 |                |\r\n2 |                |\r\n1 |                |\r\n0 |                |\r\n  +----------------+\r\n    0 1 2 3 4 5 6 7\r\n";
         assertEquals(outputStreamCaptor.toString(), expected);
         outputStreamCaptor.reset();
 
         String help = "help";
         String [] help2 = help.split("\\s+");
-        Main.mainFunction(help2,help);
-        expected = "I # = Initialize\nC = Check\nD = Pen down\nU = Pen up\nM # = Move\nR = Turn right\nL = Turn left\nP = Print\nQ = Exit\r\n";
+        obj.mainFunction(help2,help);
+        expected = "I # = Initialize\nC = Check\nD = Pen down\nU = Pen up\nM # = Move\nR = Turn right\nL = Turn left\nP = Print\nH = History\nQ = Exit\r\n";
         assertEquals(outputStreamCaptor.toString(), expected);
         outputStreamCaptor.reset();
 
         String str2 = "val";
         String [] splitStr2 = str2.split("\\s+");
-        Main.mainFunction(splitStr2,str2);
+        obj.mainFunction(splitStr2,str2);
         expected = "*Incorrect input, please try again*\r\n";
         assertEquals(outputStreamCaptor.toString(), expected);
         outputStreamCaptor.reset();
 
         String str3 = "123";
         String [] splitStr3 = str3.split("\\s+");
-        Main.mainFunction(splitStr3,str3);
+        obj.mainFunction(splitStr3,str3);
         expected = "*Incorrect input, please try again*\r\n";
         assertEquals(outputStreamCaptor.toString(), expected);
         outputStreamCaptor.reset();
 
         String str4 = "i i";
         String [] splitStr4 = str4.split("\\s+");
-        Main.mainFunction(splitStr4,str4);
+        obj.mainFunction(splitStr4,str4);
         expected = "*Incorrect input, please try again*\r\n";
         assertEquals(outputStreamCaptor.toString(), expected);
         outputStreamCaptor.reset();
@@ -291,8 +293,37 @@ public class MainTest {
     @Test
     @DisplayName("Test main")
     public void testNumberic(){
-        assertTrue(Main.isNumeric("12"));
-        assertFalse(Main.isNumeric("string"));
+        assertTrue(obj.isNumeric("12"));
+        assertFalse(obj.isNumeric("string"));
+    }
+
+    @Test
+    @DisplayName("Test history function")
+    public void testHistory(){
+        outputStreamCaptor.reset();
+        String d = "d";
+        String [] d2 = d.split("\\s+");
+        obj.mainFunction(d2,d);
+
+        String u = "u";
+        String [] u2 = u.split("\\s+");
+        obj.mainFunction(u2,u);
+
+        String l = "l";
+        String [] l2 = l.split("\\s+");
+        obj.mainFunction(l2,l);
+
+        String hello = "hello";
+        String [] hello2 = l.split("\\s+");
+        obj.mainFunction(hello2,hello);
+
+        List<String> expected = new ArrayList<>();
+        expected.add("d - Down");
+        expected.add("u - Up");
+        expected.add("l - Left");
+        expected.add("hello - *Incorrect input, please try again*");
+
+        assertEquals(obj.History(),expected);
     }
 
 }
