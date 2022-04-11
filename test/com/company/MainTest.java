@@ -301,26 +301,62 @@ public class MainTest {
     @DisplayName("Test history function")
     public void testHistory(){
         outputStreamCaptor.reset();
-        String d = "d";
-        String [] d2 = d.split("\\s+");
-        obj.mainFunction(d2,d);
+        String str= "d";
+        String [] strSplit = str.split("\\s+");
+        obj.mainFunction(strSplit,str);
 
-        String u = "u";
-        String [] u2 = u.split("\\s+");
-        obj.mainFunction(u2,u);
+        str = "u";
+        strSplit = str.split("\\s+");
+        obj.mainFunction(strSplit,str);
 
-        String l = "l";
-        String [] l2 = l.split("\\s+");
-        obj.mainFunction(l2,l);
+        str = "l";
+        strSplit = str.split("\\s+");
+        obj.mainFunction(strSplit,str);
 
-        String hello = "hello";
-        String [] hello2 = l.split("\\s+");
-        obj.mainFunction(hello2,hello);
+        str = "r";
+        strSplit = str.split("\\s+");
+        obj.mainFunction(strSplit,str);
+
+        str = "p";
+        strSplit = str.split("\\s+");
+        obj.mainFunction(strSplit,str);
+
+        str = "c";
+        strSplit = str.split("\\s+");
+        obj.mainFunction(strSplit,str);
+
+        str = "help";
+        strSplit = str.split("\\s+");
+        obj.mainFunction(strSplit,str);
+
+        str = "h";
+        strSplit = str.split("\\s+");
+        obj.mainFunction(strSplit,str);
+
+        str = "i 5";
+        strSplit = str.split("\\s+");
+        obj.mainFunction(strSplit,str);
+
+        str = "m 4";
+        strSplit = str.split("\\s+");
+        obj.mainFunction(strSplit,str);
+
+        str = "hello";
+        strSplit = str.split("\\s+");
+        obj.mainFunction(strSplit,str);
+
 
         List<String> expected = new ArrayList<>();
         expected.add("d - Down");
         expected.add("u - Up");
         expected.add("l - Left");
+        expected.add("r - Right");
+        expected.add("p - Print");
+        expected.add("c - Check");
+        expected.add("help - Help");
+        expected.add("h - History");
+        expected.add("i 5 - Initialize");
+        expected.add("m 4 - Move");
         expected.add("hello - *Incorrect input, please try again*");
 
         assertEquals(obj.History(),expected);
